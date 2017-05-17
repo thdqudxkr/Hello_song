@@ -15,11 +15,16 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.telephony.SmsManager;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
+    // 변수 및 문구 설정
+    //-----------------------------------------------------------
+    private static final String TAG = "MainActivity";
+
     EditText etTelNr;
     TextView displayText;
 
@@ -29,16 +34,25 @@ public class MainActivity extends AppCompatActivity {
     String DELIVERED = "SMS_DELIVERED";
     PendingIntent sentPI, deliveredPI;
     BroadcastReceiver smsSentReceiver, smsDelivedReceiver;
+    //-----------------------------------------------------------
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // SMS 송신용 ----------------------------------------------------------
         sentPI = PendingIntent.getBroadcast(this, 0 , new Intent(SENT) , 0);
         deliveredPI = PendingIntent.getBroadcast(this, 0 , new Intent(DELIVERED),0);
         etTelNr = (EditText) findViewById(R.id.etTelNr);
         displayText = (TextView)findViewById(R.id.textView);
+        // SMS 송신용 ----------------------------------------------------------
+
+        // Bluetooth 통신용 ----------------------------------------------------
+        Button btnONOFF = (Button) findViewById(R.id.btnONOFF);
+
+
+
     }
 
     protected void onResume() {
@@ -83,14 +97,14 @@ public class MainActivity extends AppCompatActivity {
         registerReceiver(smsDelivedReceiver, new IntentFilter(DELIVERED));
     }
 
-
+/*
     public void onButton1Clicked(View v) {
         Intent myIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://m.naver.com"));
         startActivity(myIntent);
         Toast.makeText(getApplicationContext(),"Pressed Start Button!",Toast.LENGTH_LONG).show();
     } // Button1 눌렸을때 -> naver접속
     //todo bluetooth
-
+*/
     protected void onPause() {
         super.onPause();
 
